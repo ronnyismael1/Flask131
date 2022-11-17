@@ -24,36 +24,29 @@
 
 ## Use Cases
 
-1. Use Case Name (Should match functional requirement name)
-- **Pre-condition:** <can be a list or short description> Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
+1. User home page (user can see messages of users they follow)
+- **Pre-condition:** 
+  -user is logged in
 
-- **Trigger:** <can be a list or short description> Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. 
+- **Trigger:**
+  -user is on the home page 
 
 - **Primary Sequence:**
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Et sequi incidunt 
-  3. Quis aute iure reprehenderit
-  4. ... 
-  5. ...
-  6. ...
-  7. ...
-  8. ...
-  9. ...
-  10. <Try to stick to a max of 10 steps>
-
+  1. User is logged in
+  2. Redirected to home page
+  3. System checks the list of people they follow
+  4. System prints out the posts of the people
+  5. User can see the posts
+  
 - **Primary Postconditions:** <can be a list or short description> 
-
+  1. User sees the posts of people who they follow
+  
 - **Alternate Sequence:** <you can have more than one alternate sequence to describe multiple issues that may arise>
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
+  1. User is not logged in
+    a. user does not see the posts
+    b. user is redirected to login page
 
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
-  
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
 2. Use Case Name (Should match functional requirement name)
    ...
