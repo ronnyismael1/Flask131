@@ -17,10 +17,10 @@
 
 ## Non-functional Requirements
 
-1. non-functional
-2. non-functional
-3. non-functional
-4. non-functional
+1. Only expected to work on Google Chrome
+2. UI interactive interface from Bootstrap
+3. Only expected to be formatted properly on desktop
+4. Works only with WiFi connection 
 
 ## Use Cases
 
