@@ -7,7 +7,7 @@
 6. Send messages to followers - Ronny
 7. Follow User
 8. Search for user - Sahiti
-9. Send/receive private messages
+9. Send/receive private messages - Sahiti
 10. Post image with message - Sahiti
 11. User profiles - Ronny
 12. Search messages (Homepage) - Brennan
