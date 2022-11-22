@@ -1,5 +1,4 @@
 ## Functional Requirements
-
 1. Login
 2. Logout
 3. Create a new account
@@ -21,38 +20,45 @@
 4. Works only with WiFi connection 
 
 ## Use Cases
+4. Search messages
+- **Pre-condition:** <can be a list or short description> 
+  -search keyword of atleast one character
+  -search keyword can not exceed a total of 500 characters
 
-1. Use Case Name (Should match functional requirement name)
-- **Pre-condition:** <can be a list or short description> Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
-
-- **Trigger:** <can be a list or short description> Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. 
+- **Trigger:** <can be a list or short description>
+  -user types in a search keyword in a “search message” bar and presses the search button
 
 - **Primary Sequence:**
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Et sequi incidunt 
-  3. Quis aute iure reprehenderit
-  4. ... 
-  5. ...
-  6. ...
-  7. ...
-  8. ...
-  9. ...
-  10. <Try to stick to a max of 10 steps>
+  1. User is on home page
+  2. User types in search keyword 
+  3. User clicks search 
+  4. System checks if keyword matches any message posts (space sensitive)
+  5. System prints out all message posts with search keyword (highlighted)
 
-- **Primary Postconditions:** <can be a list or short description> 
+- **Primary Postconditions:**
+  -User sees message posts with all occurances of searched keyword highlighted
 
-- **Alternate Sequence:** <you can have more than one alternate sequence to describe multiple issues that may arise>
+- **Alternate Sequence:** 
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
-
-- **Alternate Sequence <optional>:** <you can have more than one alternate sequence to describe multiple issues that may arise>
+  Search keyword not found in messages
+  1. User types in a search keyword 
+  2. User clicks search
+  3. System checks if keyword matches any message posts
+  4. System doesn't find any matches, prompts User with “No messages matched your search”
   
-  1. Ut enim ad minim veniam, quis nostrum e
-  2. Ut enim ad minim veniam, quis nostrum e
-  3. ...
+  User searches nothing
+  1. User types in nothing in search keyword 
+  2. User clicks search
+  3. System doesn't search anything
+  
+  User attempts to search with exceeded character limit
+  1. User is typing/pasting in search bar with a keyword that exceeds the 500 character limit
+  2. System will only show 500 characters, any extra input will not be accepeted into the search bar
+  
+  User pastes unformatted text into the search bar
+  1. User pastes unformatted text into the search bar
+  2. System automatically formats text to default text and font
 
 2. Use Case Name: Search user.
 - **Pre-condition:**  User is logged in.
