@@ -91,3 +91,37 @@
   User pastes unformatted text into the search bar
   1. User pastes unformatted text into the search bar
   2. System automatically formats text to default text and font
+
+5. Use Case Name: User Profile
+- **Pre-condition:**  User has access to wifi and has an account already created.
+ 
+- **Trigger:**  User clicks profile icon
+ 
+- **Primary Sequence:**
+  1. User wants to view their profile
+  2. User clicks on user icon
+  3. System identifies their account
+  4. System navigates user to their personal user profile
+ 
+- **Primary Postconditions:** User is able to view their personal profile and interact with their page.
+ 
+- **Alternate Sequence:**
+  1. User has not created a profile yet when clicking profile icon
+  2. System prompts user with create a profile screen
+ 
+6. Use Case Name: Send Messages to Followers
+- **Pre-condition:**  User has access to wifi and has an account already created.
+ 
+- **Trigger:**  User clicks the DMs icon navigation
+ 
+- **Primary Sequence:**
+  1. User clicks DMs icon
+  2. System directs user to list of mutual followers that they are able to message
+  3. User selects which person to message
+  4. System displays personal chat log with the mutual follower
+ 
+- **Primary Postconditions:** User is able to send messages and images to the mutual follower
+ 
+- **Alternate Sequence:**
+  1. User has not created a profile yet when clicking profile icon
+  2. System prompts user with create a profile screen
