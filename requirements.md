@@ -6,7 +6,7 @@
 2. Logout
 3. Create a new account
 4. delete account
-5. Existing user home page (user can see messages of users they follow)
+5. Open user home page (user can see messages of users they follow)
 6. Send messages to followers
 7. Follow User
 8. Search for user
@@ -24,7 +24,7 @@
 
 ## Use Cases
 
-1. Existing user home page (user can see messages of users they follow)
+1. Open user home page (user can see messages of users they follow)
 - **Pre-condition:** 
   -user is logged in
 
