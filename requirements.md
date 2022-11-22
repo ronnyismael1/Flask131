@@ -1,16 +1,16 @@
 ## Functional Requirements
-1. Login
-2. Logout
+1. Login - Adelyn
+2. Logout - Adelyn
 3. Create a new account
 4. delete account
-5. User home page (user can see messages of users they follow)
-6. Send messages to followers
+5. User home page (user can see messages of users they follow) - Adelyn
+6. Send messages to followers - Ronny
 7. Follow User
-8. Search for user
+8. Search for user - Sahiti
 9. Send/receive private messages
-10. Post image with message
-11. User profiles
-12. Search messages (Homepage)
+10. Post image with message - Sahiti
+11. User profiles - Ronny
+12. Search messages (Homepage) - Brennan
 
 ## Non-functional Requirements
 
