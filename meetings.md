@@ -1,5 +1,7 @@
 ## Meetings
 
+For future meetings, we plan to meet on Sundays at 11:30am.
+
 ### 2022-11-21 at 15:00
 - Adelyn, Brennan,Ronny, and Sahiti attended the meeting
 
