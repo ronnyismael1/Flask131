@@ -5,7 +5,7 @@
 4. delete account
 5. User home page (user can see messages of users they follow) - Adelyn
 6. Send messages to followers - Ronny
-7. Follow User
+7. Follow User - Ronny
 8. Search for user - Sahiti
 9. Send/receive private messages
 10. Post image with message - Sahiti
