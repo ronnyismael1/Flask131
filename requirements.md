@@ -1,8 +1,8 @@
 ## Functional Requirements
 1. Login - Adelyn
 2. Logout - Adelyn
-3. Create a new account
-4. delete account
+3. Create a new account - Brennan
+4. delete account - Brennan
 5. User home page (user can see messages of users they follow) - Adelyn
 6. Send messages to followers - Ronny
 7. Follow User
