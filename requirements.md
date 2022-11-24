@@ -112,16 +112,16 @@
 6. Use Case Name: Send Messages to Followers
 - **Pre-condition:**  User has access to wifi and has an account already created.
  
-- **Trigger:**  User clicks the DMs icon navigation
+- **Trigger:**  User clicks the button to create a public post
  
 - **Primary Sequence:**
-  1. User clicks DMs icon
-  2. System directs user to list of mutual followers that they are able to message
-  3. User selects which person to message
-  4. System displays personal chat log with the mutual follower
+  1. User clicks create post icon
+  2. System redirects user to draft screen for your message
+  3. User is able to input a series of strings or upload an image
+  4. System saves the inputed information
  
-- **Primary Postconditions:** User is able to send messages and images to the mutual follower
+- **Primary Postconditions:** The user's followers are now able to view and interact with the user's message/post
  
 - **Alternate Sequence:**
-  1. User has not created a profile yet when clicking profile icon
-  2. System prompts user with create a profile screen
+  1. The user inputs too many characters in the post and exceeds the limit
+  2. The system prompts the user with an error message
