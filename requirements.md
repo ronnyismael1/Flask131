@@ -3,7 +3,7 @@
 2. Logout - Adelyn
 3. Create a new account - Brennan
 4. delete account - Brennan
-5. User home page (user can see messages of users they follow) - Adelyn
+5. Open user home page (user can see messages of users they follow) - Adelyn
 6. Send messages to followers - Ronny
 7. Follow User
 8. Search for user - Sahiti
@@ -21,13 +21,34 @@
 
 ## Use Cases
 
+1. Open user home page (user can see messages of users they follow)
+- **Pre-condition:** 
+  -User is logged in with correct credentials
+
+- **Trigger:**
+  -User is accessing the home page 
+  
+- **Primary Sequence:**
+  1. System redirects user to their home page
+  2. System checks the list of people they follow
+  3. System prints out the posts of the people
+  4. User can see the posts
+  
+- **Primary Postconditions:**  
+  1. User sees the posts of people who they follow
+  
+- **Alternate Sequence:** 
+  1. User logs in with incorrect login credentials
+    a. System displays error message
+    b. System redirects user to login page
+
+
 2. Use Case Name: Search user.
 - **Pre-condition:**  User is logged in and on the home page.
 
 - **Trigger:** User clicks on the search icon (a magnifying glass).
 
 - **Primary Sequence:**
-
   1. System displays a search bar box for the user to enter text.
   2. User types the name of the user they want, in the search bar box and hits enter.
   3. System shows a list of all users with the typed name in the form of their username and actual name.  
@@ -37,9 +58,9 @@
 - **Primary Postconditions:** User sees the profile page of the user they searched for.
 
 - **Alternate Sequence:** 
-
   1. User entered wrong spelling of the user they want to search.
   2. System shows an error message to the user.
+
 
 3. Use Case Name: Post image with message.
 - **Pre-condition:**  User is logged into their account and is on their home page. 
@@ -47,7 +68,6 @@
 - **Trigger:** On the home page, user clicks on the button that has a photo icon with a plus sign on it.
 
 - **Primary Sequence:**
-
   1. System opens the drag and drop field.
   2. User selects an image from Desktop and drags it into the field.
   3. System reserves the image selected to be sent.
@@ -59,6 +79,7 @@
 - **Alternate Sequence:** 
   1. User drags and drops a non-photo file into the field.
   2. System shows "Only image files are allowed" message.
+  
   
 4. Search messages (Homepage)
 - **Pre-condition:** 
@@ -76,7 +97,6 @@
   -User sees message posts with all occurances of searched keyword highlighted
 
 - **Alternate Sequence:** 
-  
   Search keyword not found in messages
   1. System checks if keyword matches any message posts
   2. System doesn't find any matches, prompts User with “No messages matched your search”
