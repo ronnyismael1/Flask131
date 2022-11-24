@@ -5,11 +5,11 @@
 4. delete account - Brennan
 5. Open user home page (user can see messages of users they follow) - Adelyn
 6. Send messages to followers - Ronny
-7. Follow User
+7. Follow User - Ronny
 8. Search for user - Sahiti
 9. Send/receive private messages - Sahiti
 10. Post image with message - Sahiti
-11. User profiles - Ronny
+11. Open user profile - Ronny
 12. Search messages (Homepage) - Brennan
 
 ## Non-functional Requirements
@@ -111,3 +111,38 @@
   User pastes unformatted text into the search bar
   1. User pastes unformatted text into the search bar
   2. System automatically formats text to default text and font
+
+
+5. Use Case Name: Open User Profile
+- **Pre-condition:**  User is logged in and has access to wifi and has an account already created.
+ 
+- **Trigger:**  User clicks on profile icon
+ 
+- **Primary Sequence:**
+  1. System identifies their account
+  2. System navigates user to their personal user profile
+ 
+- **Primary Postconditions:** User is able to view their personal profile and interact with their page.
+ 
+- **Alternate Sequence:**
+  1. User has not created a profile yet when clicking make a post icon
+  2. System prompts user to create a profile
+ 
+ 
+6. Use Case Name: Send Messages to Followers
+- **Pre-condition:**  User is logged into their account and has access to wifi and has an account already created. User is on their home page.
+ 
+- **Trigger:**  User clicks the plus sign button
+ 
+- **Primary Sequence:**
+  1. System redirects user to draft screen for your message
+  2. User is able to input a series of strings
+  3. System saves the inputed information
+  4. User clicks on "publish message"
+  5. System publishes the message
+ 
+- **Primary Postconditions:** The user's followers are now able to view and interact with the user's message/post
+ 
+- **Alternate Sequence:**
+  1. The user inputs too many characters in the post and exceeds the limit
+  2. The system prompts the user with an error message
