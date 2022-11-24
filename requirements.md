@@ -1,13 +1,13 @@
 ## Functional Requirements
 1. Login - Adelyn
 2. Logout - Adelyn
-3. Create a new account
-4. delete account
-5. User home page (user can see messages of users they follow) - Adelyn
+3. Create a new account - Brennan
+4. delete account - Brennan
+5. Open user home page (user can see messages of users they follow) - Adelyn
 6. Send messages to followers - Ronny
 7. Follow User - Ronny
 8. Search for user - Sahiti
-9. Send/receive private messages
+9. Send/receive private messages - Sahiti
 10. Post image with message - Sahiti
 11. Open user profile - Ronny
 12. Search messages (Homepage) - Brennan
@@ -21,13 +21,34 @@
 
 ## Use Cases
 
+1. Open user home page (user can see messages of users they follow)
+- **Pre-condition:** 
+  -User is logged in with correct credentials
+
+- **Trigger:**
+  -User is accessing the home page 
+  
+- **Primary Sequence:**
+  1. System redirects user to their home page
+  2. System checks the list of people they follow
+  3. System prints out the posts of the people
+  4. User can see the posts
+  
+- **Primary Postconditions:**  
+  1. User sees the posts of people who they follow
+  
+- **Alternate Sequence:** 
+  1. User logs in with incorrect login credentials
+    a. System displays error message
+    b. System redirects user to login page
+
+
 2. Use Case Name: Search user.
-- **Pre-condition:**  User is logged in.
+- **Pre-condition:**  User is logged in and on the home page.
 
 - **Trigger:** User clicks on the search icon (a magnifying glass).
 
 - **Primary Sequence:**
-
   1. System displays a search bar box for the user to enter text.
   2. User types the name of the user they want, in the search bar box and hits enter.
   3. System shows a list of all users with the typed name in the form of their username and actual name.  
@@ -37,28 +58,28 @@
 - **Primary Postconditions:** User sees the profile page of the user they searched for.
 
 - **Alternate Sequence:** 
-
   1. User entered wrong spelling of the user they want to search.
   2. System shows an error message to the user.
 
-3. Use Case Name: Post image with message.
-- **Pre-condition:**  User is logged in and is on the direct message page with another user. 
 
-- **Trigger:** User clicks on the send message bar's photo icon.
+3. Use Case Name: Post image with message.
+- **Pre-condition:**  User is logged into their account and is on their home page. 
+
+- **Trigger:** On the home page, user clicks on the button that has a photo icon with a plus sign on it.
 
 - **Primary Sequence:**
-
   1. System opens the drag and drop field.
   2. User selects an image from Desktop and drags it into the field.
   3. System reserves the image selected to be sent.
-  4. User types a message to be sent along with the selected image and clicks on "send".
-  5. System sends the text message and the image to another user on the direct message page. 
+  4. User types a message to be sent along with the selected image, and clicks on "publish message" button.
+  5. System publishes the message and the image. 
 
-- **Primary Postconditions:** The image and the message are both sent to the other user. This other user can see these sent to them.
+- **Primary Postconditions:** The image and the message are both visible to user's followers. These followers can react or respond to this post.
 
 - **Alternate Sequence:** 
-  1. User drags and drop a non-photo file into the field.
-  2. System shows "Only image files can be dropped" message.
+  1. User drags and drops a non-photo file into the field.
+  2. System shows "Only image files are allowed" message.
+  
   
 4. Search messages (Homepage)
 - **Pre-condition:** 
@@ -76,7 +97,6 @@
   -User sees message posts with all occurances of searched keyword highlighted
 
 - **Alternate Sequence:** 
-  
   Search keyword not found in messages
   1. System checks if keyword matches any message posts
   2. System doesn't find any matches, prompts User with “No messages matched your search”
@@ -92,6 +112,7 @@
   1. User pastes unformatted text into the search bar
   2. System automatically formats text to default text and font
 
+
 5. Use Case Name: Open User Profile
 - **Pre-condition:**  User is logged in and has access to wifi and has an account already created.
  
@@ -106,6 +127,7 @@
 - **Alternate Sequence:**
   1. User has not created a profile yet when clicking make a post icon
   2. System prompts user to create a profile
+ 
  
 6. Use Case Name: Send Messages to Followers
 - **Pre-condition:**  User is logged into their account and has access to wifi and has an account already created. User is on their home page.
