@@ -22,7 +22,7 @@
 ## Use Cases
 
 2. Use Case Name: Search user.
-- **Pre-condition:**  User is logged in.
+- **Pre-condition:**  User is logged in and on the home page.
 
 - **Trigger:** User clicks on the search icon (a magnifying glass).
 
@@ -42,23 +42,23 @@
   2. System shows an error message to the user.
 
 3. Use Case Name: Post image with message.
-- **Pre-condition:**  User is logged in and is on the direct message page with another user. 
+- **Pre-condition:**  User is logged into their account and is on their home page. 
 
-- **Trigger:** User clicks on the send message bar's photo icon.
+- **Trigger:** On the home page, user clicks on the button that has a photo icon with a plus sign on it.
 
 - **Primary Sequence:**
 
   1. System opens the drag and drop field.
   2. User selects an image from Desktop and drags it into the field.
   3. System reserves the image selected to be sent.
-  4. User types a message to be sent along with the selected image and clicks on "send".
-  5. System sends the text message and the image to another user on the direct message page. 
+  4. User types a message to be sent along with the selected image, and clicks on "publish message" button.
+  5. System publishes the message and the image. 
 
-- **Primary Postconditions:** The image and the message are both sent to the other user. This other user can see these sent to them.
+- **Primary Postconditions:** The image and the message are both visible to user's followers. These followers can react or respond to this post.
 
 - **Alternate Sequence:** 
-  1. User drags and drop a non-photo file into the field.
-  2. System shows "Only image files can be dropped" message.
+  1. User drags and drops a non-photo file into the field.
+  2. System shows "Only image files are allowed" message.
   
 4. Search messages (Homepage)
 - **Pre-condition:** 
