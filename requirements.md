@@ -1,19 +1,16 @@
-## <remove all of the example text and notes in < > such as this one>
-
 ## Functional Requirements
-
-1. Login
-2. Logout
-3. Create a new account
-4. delete account
-5. Open user home page (user can see messages of users they follow)
-6. Send messages to followers
+1. Login - Adelyn
+2. Logout - Adelyn
+3. Create a new account - Brennan
+4. delete account - Brennan
+5. Open user home page (user can see messages of users they follow) - Adelyn
+6. Send messages to followers - Ronny
 7. Follow User
-8. Search for user
-9. Send/receive private messages
-10. Post image with message
-11. User profiles
-12. Search messages
+8. Search for user - Sahiti
+9. Send/receive private messages - Sahiti
+10. Post image with message - Sahiti
+11. User profiles - Ronny
+12. Search messages (Homepage) - Brennan
 
 ## Non-functional Requirements
 
@@ -30,22 +27,87 @@
 
 - **Trigger:**
   -User is accessing the home page 
-
-- **Primary Sequence:**
   
+- **Primary Sequence:**
   1. System redirects user to their home page
   2. System checks the list of people they follow
   3. System prints out the posts of the people
   4. User can see the posts
   
-- **Primary Postconditions:** <can be a list or short description> 
+- **Primary Postconditions:**  
   1. User sees the posts of people who they follow
   
-- **Alternate Sequence:** <you can have more than one alternate sequence to describe multiple issues that may arise>
-  
+- **Alternate Sequence:** 
   1. User logs in with incorrect login credentials
     a. System displays error message
     b. System redirects user to login page
 
-2. Use Case Name (Should match functional requirement name)
-   ...
+
+2. Use Case Name: Search user.
+- **Pre-condition:**  User is logged in and on the home page.
+
+- **Trigger:** User clicks on the search icon (a magnifying glass).
+
+- **Primary Sequence:**
+  1. System displays a search bar box for the user to enter text.
+  2. User types the name of the user they want, in the search bar box and hits enter.
+  3. System shows a list of all users with the typed name in the form of their username and actual name.  
+  4. User clicks on the desired result.
+  5. System opens the result's profile page. 
+
+- **Primary Postconditions:** User sees the profile page of the user they searched for.
+
+- **Alternate Sequence:** 
+  1. User entered wrong spelling of the user they want to search.
+  2. System shows an error message to the user.
+
+
+3. Use Case Name: Post image with message.
+- **Pre-condition:**  User is logged into their account and is on their home page. 
+
+- **Trigger:** On the home page, user clicks on the button that has a photo icon with a plus sign on it.
+
+- **Primary Sequence:**
+  1. System opens the drag and drop field.
+  2. User selects an image from Desktop and drags it into the field.
+  3. System reserves the image selected to be sent.
+  4. User types a message to be sent along with the selected image, and clicks on "publish message" button.
+  5. System publishes the message and the image. 
+
+- **Primary Postconditions:** The image and the message are both visible to user's followers. These followers can react or respond to this post.
+
+- **Alternate Sequence:** 
+  1. User drags and drops a non-photo file into the field.
+  2. System shows "Only image files are allowed" message.
+  
+  
+4. Search messages (Homepage)
+- **Pre-condition:** 
+  -User is logged in
+
+- **Trigger:**
+  -User types in a search keyword in a “search message” bar and presses the search button
+
+- **Primary Sequence:**
+  
+  1. System checks if keyword matches any message posts (space sensitive)
+  2. System prints out all message posts with search keyword (highlighted)
+
+- **Primary Postconditions:**
+  -User sees message posts with all occurances of searched keyword highlighted
+
+- **Alternate Sequence:** 
+  Search keyword not found in messages
+  1. System checks if keyword matches any message posts
+  2. System doesn't find any matches, prompts User with “No messages matched your search”
+  
+  User searches nothing
+  1. System doesn't search anything
+  
+  User attempts to search with exceeded character limit
+  1. User is typing/pasting in search bar with a keyword that exceeds the 500 character limit
+  2. System will only show 500 characters, any extra input will not be accepeted into the search bar
+  
+  User pastes unformatted text into the search bar
+  1. User pastes unformatted text into the search bar
+  2. System automatically formats text to default text and font
