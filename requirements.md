@@ -26,27 +26,26 @@
 
 1. Open user home page (user can see messages of users they follow)
 - **Pre-condition:** 
-  -user is logged in
+  -User is logged in with correct credentials
 
 - **Trigger:**
-  -user is on the home page 
+  -User is accessing the home page 
 
 - **Primary Sequence:**
   
-  1. User is logged in
-  2. Redirected to home page
-  3. System checks the list of people they follow
-  4. System prints out the posts of the people
-  5. User can see the posts
+  1. System redirects user to their home page
+  2. System checks the list of people they follow
+  3. System prints out the posts of the people
+  4. User can see the posts
   
 - **Primary Postconditions:** <can be a list or short description> 
   1. User sees the posts of people who they follow
   
 - **Alternate Sequence:** <you can have more than one alternate sequence to describe multiple issues that may arise>
   
-  1. User is not logged in
-    a. user does not see the posts
-    b. user is redirected to login page
+  1. User logs in with incorrect login credentials
+    a. System displays error message
+    b. System redirects user to login page
 
 2. Use Case Name (Should match functional requirement name)
    ...
