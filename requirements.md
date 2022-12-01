@@ -27,8 +27,8 @@
 - **Trigger:** User is accessing the home page 
   
 - **Primary Sequence:**
-  1. System redirects user to their home page
-  2. Home page displays the posts of the people that the user follows
+  1. User is redirected to their home page
+  2. Home page contains the posts of the people that the user follows
   
 - **Primary Postconditions:**  
   1. User sees the posts of people who they follow
