@@ -22,25 +22,21 @@
 ## Use Cases
 
 1. Open user home page (user can see messages of users they follow)
-- **Pre-condition:** 
-  -User is logged in with correct credentials
+- **Pre-condition:** User is logged in with correct credentials
 
-- **Trigger:**
-  -User is accessing the home page 
+- **Trigger:** User is accessing the home page 
   
 - **Primary Sequence:**
-  1. System redirects user to their home page
-  2. System checks the list of people they follow
-  3. System prints out the posts of the people
-  4. User can see the posts
+  1. User is redirected to their home page
+  2. Home page contains the posts of the people that the user follows
   
 - **Primary Postconditions:**  
   1. User sees the posts of people who they follow
   
 - **Alternate Sequence:** 
-  1. User logs in with incorrect login credentials
-    a. System displays error message
-    b. System redirects user to login page
+  User logs in with incorrect login credentials
+    1. System displays error message
+    2. System redirects user to login page
 
 
 2. Use Case Name: Search user.
