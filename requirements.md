@@ -78,19 +78,16 @@
   
   
 4. Search messages (Homepage)
-- **Pre-condition:** 
-  -User is logged in
+- **Pre-condition:** User is logged in
 
-- **Trigger:**
-  -User types in a search keyword in a “search message” bar and presses the search button
+- **Trigger:** User types in a search keyword in a “search message” bar and presses the search button
 
 - **Primary Sequence:**
   
   1. System checks if keyword matches any message posts (space sensitive)
   2. System prints out all message posts with search keyword (highlighted)
 
-- **Primary Postconditions:**
-  -User sees message posts with all occurances of searched keyword highlighted
+- **Primary Postconditions:** User sees message posts with all occurances of searched keyword highlighted
 
 - **Alternate Sequence:** 
   Search keyword not found in messages
