@@ -112,8 +112,8 @@
 - **Trigger:**  User clicks on profile icon
  
 - **Primary Sequence:**
-  1. System identifies their account
-  2. System navigates user to their personal user profile
+  1. User is redirected to their profile page.
+  2. System prompts user with a welcome message.
  
 - **Primary Postconditions:** User is able to view their personal profile and interact with their page.
  
