@@ -4,7 +4,7 @@
 {% block title %} Home {% endblock %}
 
 {% block body %}
-
+<center>
 <div class="container">
 
     <br>
@@ -35,16 +35,17 @@
 
     {% endwith %}
 
-    <h1>Login</h1>
+
 
     <form action="" method="post" novalidate>
       {{form.csrf_token}}
-
+      <div></div>
       <p>
 
           {{form.username.label}}
+          <div></div>
           {{form.username(size=32)}}
-
+        
 
 
           {% for error in form.username.errors %}
@@ -60,6 +61,7 @@
          <p>
 
           {{form.password.label}}
+          <div></div>
           {{form.password(size=32)}}
 
 
@@ -71,19 +73,15 @@
           {% endfor %}
 
       </p>
-
+      <div></div>
 
         <p>
             <input type="submit" value="Login" class="btn btn-outline-light" style="background-color: #546b56;">
-
         </p>
-
-
-
+        <a class="nav-link" href="{{url_for('register')}}">Register</a>
     </form>
 
 
-
 </div>
-
+</center>
 {% endblock %}

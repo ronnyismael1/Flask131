@@ -18,7 +18,9 @@ app.config.update(
 )
 db = SQLAlchemy(app)
 
-
+@app.before_first_request
+def create_tables():
+    db.create_all()
 #login code
 login_manager = LoginManager()
 login_manager.init_app(app)
