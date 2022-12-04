@@ -113,7 +113,7 @@
  
 - **Primary Sequence:**
   1. User is redirected to their profile page.
-  2. System prompts user with a welcome message.
+  2. System shows a welcome message to user
  
 - **Primary Postconditions:** User is able to view their personal profile and interact with their page.
  
