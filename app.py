@@ -1,11 +1,17 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
 from forms import LoginForm, RegistrationForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, validators
+from wtforms.validators import DataRequired, Length, EqualTo
+from wtforms.widgets import TextArea
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import LoginManager, UserMixin
 from flask_login import login_user, logout_user, current_user, login_required
+from datetime import datetime, timedelta
+import time
 import os
-
 
 #create the object of Flask
 app  = Flask(__name__)
@@ -16,18 +22,53 @@ app.config.update(
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db'),
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 )
+
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 @app.before_first_request
 def create_tables():
     db.create_all()
-
+    
 #login code
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'Login'
 
+#Creating a Blog Post Model
+class Posts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    content = db.Column(db.Text)
+    author = db.Column(db.String(255))
+    date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
+#Create a Post Form
+class PostForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    content = StringField("Content", validators=[DataRequired()], widget=TextArea())
+    author = StringField("Author", validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
+# Add Post Page
+@app.route('/add-post', methods =['GET', 'POST'])
+def add_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Posts(title=form.title.data, content=form.content.data, author=form.author.data)
+        # Empty form
+        form.title.data = ''
+        form.content.data = ''
+        form.author.data = ''
+        
+        # Add post to DB
+        db.session.add(post)
+        db.session.commit()
+        # Returns Message
+        flash("Post Submitted Successfully!")
+        
+    # Redirect to the webpage
+    return render_template("add_post.html", form=form)
 
 #This is our model
 class UserInfo(UserMixin, db.Model):
