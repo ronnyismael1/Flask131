@@ -17,10 +17,10 @@ app.config.update(
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 )
 db = SQLAlchemy(app)
-
 @app.before_first_request
 def create_tables():
     db.create_all()
+
 #login code
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -65,8 +65,9 @@ def index():
 #login route
 @app.route('/login' , methods = ['GET', 'POST'])
 def Login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
     form = LoginForm()
-
     if request.method == 'POST':
         if form.validate_on_submit():
             user = UserInfo.query.filter_by(username=form.username.data).first()
