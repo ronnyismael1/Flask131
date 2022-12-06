@@ -35,6 +35,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'Login'
 
+##############################################
+#     Creating Posting Functionality         #
+##############################################
 #Creating a Blog Post Model
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -70,6 +73,24 @@ def add_post():
     # Redirect to the webpage
     return render_template("add_post.html", form=form)
 
+##############################################
+#    Creating Following Capability           #
+##############################################
+
+followers = db.Table('followers', 
+                     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+                     db.column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+class User(UserMixin, db.Model):
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin = (followers.c.follower_id == id),
+        secondaryjoin = (followers.c.followed_id == id),
+        backref = db.backref('followers', lazer = 'dynamic'), lazy = 'dynamic')
+    
+    
+    
 #This is our model
 class UserInfo(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -81,9 +102,7 @@ class UserInfo(UserMixin, db.Model):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-
-
-
+##############################################
 
 @login_manager.user_loader
 def load_user(user_id):
