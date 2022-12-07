@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table>
+        <tr valign="top">
+            <td style="padding-left:10px;">
+                <h1>User: {{ user.username }}</h1>
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+                {% if user == current_user %}
+
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <hr>
+    {% for post in posts %}
+        {% include 'post.html' %}
+    {% endfor %}
+{% endblock %}
