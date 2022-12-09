@@ -52,7 +52,7 @@ class RegistrationForm(FlaskForm):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), index=True, unique=True)
+    username = db.Column(db.String(100), unique=True)
     password_hash = db.Column(db.String(100))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
@@ -152,6 +152,21 @@ def register():
         return redirect(url_for('Login'))
     return render_template('registration.html', title='Register', form=form)
 
+@app.route('/delete/<username>')
+@login_required
+def delete(username):
+
+    delete_user = User.query.first_or_404(username)
+
+    try:
+        db.session.delete(delete_user)
+        db.session.commit()
+        flash('Success, User has been deleted!')
+        logout_user()
+        return redirect(url_for('index'))
+    except:
+        flash('Error, could not delete user')
+
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -159,7 +174,7 @@ def user(username):
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().all()
 
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user.html', user=user, posts=posts, username=username)
 
 if __name__ == '__main__':
     app.run(debug=True)

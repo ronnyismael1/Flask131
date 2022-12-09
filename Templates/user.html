@@ -7,7 +7,10 @@
                 <h1>User: {{ user.username }}</h1>
                 {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
                 {% if user == current_user %}
-
+                  <!-- <p>
+                      <input type="submit" value="Delete My Account" class="btn btn-outline-light" style="background-color: #546b56;">
+                  </p> -->
+                  <a class="btn btn-outline-light" style="background-color: #d11a2a;" href="{{url_for('delete', username=username)}}">Delete Account</a>
                 {% endif %}
             </td>
         </tr>
