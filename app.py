@@ -80,7 +80,7 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -114,7 +114,8 @@ def index():
         flash('Your message is now posted!')
         return redirect(url_for('index'))
 
-    posts = current_user.followed_posts().all()
+    # posts = current_user.followed_posts()
+    posts = Post.query.order_by(Post.timestamp.desc());
     page = request.args.get('page', 1, type=int)
 
     return render_template('index.html', title='Home', form=form, posts=posts)
