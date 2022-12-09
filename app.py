@@ -155,17 +155,20 @@ def register():
 @app.route('/delete/<username>')
 @login_required
 def delete(username):
+    if(username == current_user.username):
+        delete_user = User.query.first_or_404(username)
 
-    delete_user = User.query.first_or_404(username)
-
-    try:
-        db.session.delete(delete_user)
-        db.session.commit()
-        flash('Success, User has been deleted!')
-        logout_user()
-        return redirect(url_for('index'))
-    except:
-        flash('Error, could not delete user')
+        try:
+            db.session.delete(delete_user)
+            db.session.commit()
+            flash('Success, User has been deleted!')
+            logout_user()
+            return redirect(url_for('index'))
+        except:
+            flash('Error, could not delete user')
+    else:
+        flash('You can not delete that user')
+        return redirect(url_for('user', username=current_user.username))
 
 @app.route('/user/<username>')
 @login_required
