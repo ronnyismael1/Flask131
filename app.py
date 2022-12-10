@@ -1,13 +1,15 @@
 #app.py
 from flask import Flask, render_template, flash, redirect, url_for, request
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
-from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import InputRequired, ValidationError, DataRequired, EqualTo, Length, Email
-
+from wtforms.widgets import TextArea
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+from datetime import datetime
+import time
 import os
 
 #create the object of Flask

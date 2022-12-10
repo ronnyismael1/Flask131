@@ -1,36 +1,15 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block content %}
 
-<h2>Welcome, {{ current_user.username }}!</h2>
-<br>
-<h5>Create a New Post...</h5>
-<div class="shadow p-3 mb-5 bg-body rounded">
-	<form method="POST">
-		{{ form.hidden_tag() }}
+{% block title %} Home {% endblock %}
 
-		{{ form.title.label(class="form-label") }}
+{% block body %}
 
-		{{ form.title(class="form-control") }}
-		<br/>
-
-		{{ form.post.label(class="form-label") }}
-
-		{{ form.post(class="form-control", rows="6") }}
-		<br/>
-
-		{{ form.submit(class="btn btn-secondary") }}
-
-	</form>
+<div class="container">
+    <h1>Home Page</h1>
+    <h2>Hello Mr. {{name}}</h2>
 
 
 </div>
 
-<div class="shadow p-3 mb-5 bg-body rounded">
-  <br/>
-  <h5>Message Posts</h5>
-  {% for post in posts %}
-      {% include 'post.html' %}
-  {% endfor %}
-</div>
 {% endblock %}
