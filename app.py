@@ -31,11 +31,24 @@ db = SQLAlchemy(app)
 def create_tables():
     db.create_all()
 
-followers = db.Table(
-    'followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
-)
+##############################################
+#     Creating Posting Functionality         #
+##############################################
+#Creating a Blog Post Model
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(255))
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default = datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<post>'.format(self.body)
+
+class PostForm(FlaskForm):
+    title = StringField("Title", validators=[DataRequired()])
+    post = TextAreaField('Say something', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired()])
@@ -50,6 +63,17 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
+##############################################
+#    Creating Following Capability           #
+##############################################
+
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
+#This is our new model
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True)
@@ -77,18 +101,18 @@ class User(UserMixin, db.Model):
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default = datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+# Old model
+# class UserInfo(UserMixin, db.Model):
+#     id = db.Column(db.Integer, primary_key = True)
+#     username = db.Column(db.String(100), unique = True)
+#     password = db.Column(db.String(100))
+#
+#
+#
+#     def __init__(self, username, password):
+#         self.username = username
+#         self.password = password
 
-    def __repr__(self):
-        return '<post>'.format(self.body)
-
-class PostForm(FlaskForm):
-    post = TextAreaField('Say something', validators=[DataRequired()])
-    submit = SubmitField('Submit')
 
 
 @login_manager.user_loader
@@ -108,9 +132,15 @@ def index():
 
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, author=current_user)
+        post = Post(title=form.title.data, body=form.post.data, author=current_user)
+
+        form.title.data = ''
+        form.post.data = ''
+
         db.session.add(post)
         db.session.commit()
+
+
         flash('Your message is now posted!')
         return redirect(url_for('index'))
 
@@ -119,6 +149,27 @@ def index():
     page = request.args.get('page', 1, type=int)
 
     return render_template('index.html', title='Home', form=form, posts=posts)
+
+# Add Post Page
+@app.route('/add-post', methods =['GET', 'POST'])
+@login_required
+def add_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, body=form.post.data, author=current_user)
+        # Empty form
+        form.title.data = ''
+        form.post.data = ''
+        # form.author.data = ''
+
+        # Add post to DB
+        db.session.add(post)
+        db.session.commit()
+        # Returns Message
+        flash("Post Submitted Successfully!")
+
+    # Redirect to the webpage
+    return render_template("add_post.html", form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def Login():
@@ -179,6 +230,10 @@ def user(username):
     posts = current_user.followed_posts().all()
 
     return render_template('user.html', user=user, posts=posts, username=username)
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

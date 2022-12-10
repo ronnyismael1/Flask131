@@ -1,26 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-    <h1>Hi, {{ current_user.username }}!</h1>
-    {% if form %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <br><br><br>
-        <p>
-            {{ form.post.label }}<br>
-            {{ form.post(cols=100, rows=5, class_="form-control") }}<br>
-            {% for error in form.post.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% endif %}
 
-    {% for post in posts %}
-        {% include 'post.html' %}
-    {% endfor %}
+<h2>Welcome, {{ current_user.username }}!</h2>
+<br>
+<h5>Create a New Post...</h5>
+<div class="shadow p-3 mb-5 bg-body rounded">
+	<form method="POST">
+		{{ form.hidden_tag() }}
 
+		{{ form.title.label(class="form-label") }}
+
+		{{ form.title(class="form-control") }}
+		<br/>
+
+		{{ form.post.label(class="form-label") }}
+
+		{{ form.post(class="form-control", rows="6") }}
+		<br/>
+
+		{{ form.submit(class="btn btn-secondary") }}
+
+	</form>
+
+
+</div>
+
+<div class="shadow p-3 mb-5 bg-body rounded">
+  <br/>
+  <h5>Message Posts</h5>
+  {% for post in posts %}
+      {% include 'post.html' %}
+  {% endfor %}
 </div>
 {% endblock %}
