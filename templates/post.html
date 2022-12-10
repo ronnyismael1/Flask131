@@ -1,0 +1,14 @@
+<table class="table table-hover">
+        <tr valign="top">
+   <td align="left">
+     <a href="{{ url_for('user', username=post.author.username) }}">
+       {{ post.author.username }}
+       <a style="margin-right: 40px">
+         {{ post.timestamp}}
+       </a>
+     </a>
+     <br><h5>Title: {{ post.title }} </h5>
+     {{ post.body }}
+   </td>
+        </tr>
+    </table>
