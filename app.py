@@ -149,6 +149,13 @@ def index():
 
     return render_template('index.html', title='Home', form=form, posts=posts)
 
+
+#    def validate_username(self, username):
+ #       user = User.query.filter_by(username=username.data).first()
+ #       if user is not None:
+  #          raise ValidationError('Please use a different username.')
+
+
 # Add Post Page
 @app.route('/add-post', methods =['GET', 'POST'])
 @login_required
