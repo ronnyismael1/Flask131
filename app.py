@@ -65,6 +65,10 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('Please use a different username.')
 
+class SearchForm(FlaskForm):
+    searched = StringField("Searched", validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
 ##############################################
 #    Creating Following Capability           #
 ##############################################
@@ -148,12 +152,6 @@ def index():
     page = request.args.get('page', 1, type=int)
 
     return render_template('index.html', title='Home', form=form, posts=posts)
-
-
-#    def validate_username(self, username):
- #       user = User.query.filter_by(username=username.data).first()
- #       if user is not None:
-  #          raise ValidationError('Please use a different username.')
 
 
 # Add Post Page
@@ -246,6 +244,22 @@ def user(username):
     posts = current_user.followed_posts().all()
 
     return render_template('user.html', user=user, posts=posts, username=username)
+
+@app.context_processor #to pass stuff to nav bar (via base.html)
+def base():
+     form = SearchForm()
+     return dict(form=form)
+
+@app.route('/search', methods=['POST'])
+@login_required
+def search():
+    form = SearchForm()
+    if form.validate_on_submit():
+        post_searched = form.searched.data 
+        user = User.query.filter_by(username=post_searched).first_or_404()
+
+        return render_template('search.html', form=form, 
+        searched=post_searched, user=user)
 
 @app.errorhandler(404)
 def page_not_found(error):

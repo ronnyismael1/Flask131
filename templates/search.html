@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Search Results {% endblock %}
+
+{% block content %}
+    <br/>
+    <h2>You searched for the following username: </h2>
+    <p>{{   searched    }}</p>
+    <br/>
+
+    <h2>Search results: </h2>
+    <a href="{{ url_for('user', username=user.username)}}">{{ user.username }}</a><br/>
+
+{% endblock %}
