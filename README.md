@@ -29,7 +29,7 @@ Open user home page (user can see messages of users they follow) - Brennan
 Send messages to followers - 
 Follow User - 
 Search for user - Sahiti
-Open user profile - 
+Open user profile - Brennan
 Search messages (Homepage) - Sahiti
 Send/receive private messages - Sahiti (partly done but not pushed to main due to time constraint)
 
