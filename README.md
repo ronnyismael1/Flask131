@@ -1,3 +1,5 @@
+#Implementation
+
 ## How to Use Website
 ### Pre-requisites
 1. Install Python3 and Flask onto your system.
@@ -17,8 +19,7 @@ In order to use our website, there are a few instructions that one should follow
 You can install these packages using pip or a similar package manager. For example, to install Flask, you can use the following command:
 $ pip install flask
 
-
-#Implementation
+Navigating our website from there is quite fun, and should be explored! Access is not granted until you register, and then log-in. From there, you are able to see and search posts, find other users, and create your own messages.
 
 
 # Requirements implemented by:
@@ -34,9 +35,6 @@ Open user profile -
 Search messages (Homepage) - Sahiti
 Send/receive private messages - Sahiti (partly done but not pushed to main due to time constraint)
 
-# Ethical Implications
-=======
-Navigating our website from there is quite fun, and should be explored! Access is not granted until you register, and then log-in. From there, you are able to see and search posts, find other users, and create your own messages.
 
 ## Ethical Implications
 
