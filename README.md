@@ -1,6 +1,4 @@
-###Implementation
-
-## How to Use Website
+## (Implementation) How to Use Website
 ### Pre-requisites
 1. Install Python3 and Flask onto your system.
 2. Ability to host locally.
