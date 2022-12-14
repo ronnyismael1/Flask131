@@ -6,12 +6,26 @@
             <td style="padding-left:10px;">
                 <h1>User: {{ user.username }}</h1>
                 {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
                 {% if user == current_user %}
-                  <!-- <p>
-                      <input type="submit" value="Delete My Account" class="btn btn-outline-light" style="background-color: #546b56;">
-                  </p> -->
-                  <a class="btn btn-outline-light" style="background-color: #d11a2a;" href="{{url_for('delete', username=username)}}">Delete Account</a>
+                  <a class="btn btn-outline-light" style="background-color: #d11a2a;"
+                  href="{{url_for('delete', username=username)}}">Delete Account</a>
+                {% elif not current_user.is_following(user) %}
+                <p>
+                  <form action="{{ url_for('follow', username=user.username) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(value='Follow') }}
+                  </form>
+                </p>
+                {% else %}
+                <p>
+                  <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.submit(value='Unfollow') }}
+                  </form>
+                </p>
                 {% endif %}
+
             </td>
         </tr>
     </table>
