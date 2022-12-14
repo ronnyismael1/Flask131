@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Search for users</title>
+</head>
+<body>
+    <h1>Search for users</h1>
+
+    <!-- Display any error messages that may have been flashed by the Flask app -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">{{ message }}</div>
+    {% endfor %}
+
+    <!-- Display the search form -->
+    <form method="POST" action="{{ url_for('find_users') }}">
+        {{ form.csrf_token }}
+        {{ form.searched.label }}: {{ form.searched() }}
+        <input type="submit" value="Search">
+    </form>
+</body>
+</html>
