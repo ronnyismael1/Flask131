@@ -130,6 +130,7 @@ def followed_posts(self):
 # Import the User model from the app module
 
 @app.route('/find-users', methods=['GET', 'POST'])
+@login_required
 def find_users():
     # Create a form for searching for users
     form = SearchForm()
