@@ -41,12 +41,21 @@
       <li class="nav-item">
         <a class="nav-link" href="{{url_for('add_post')}}">Create Post</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('find_users')}}">Follow Users</a>
+      </li>
 
     </ul>
 
     <form method="POST" action="{{url_for('search')}}" class="form-inline my-2 my-lg-0">
       {{ form.hidden_tag() }} <!--csrf token for this page to protect form from hackers-->
       <input class="form-control mr-sm-2" type="search" placeholder="Search username" aria-label="Search", name="searched">
+      <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+
+    <form method="POST" action="{{url_for('searchedMessage')}}" class="form-inline my-2 my-lg-0">
+      {{ form.hidden_tag() }} <!--csrf token for this page to protect form from hackers-->
+      <input class="form-control mr-sm-2" type="search" placeholder="Search message" aria-label="Search", name="searchedMessage">
       <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
   </div>                   
