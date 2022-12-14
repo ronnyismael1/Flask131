@@ -1,4 +1,4 @@
-#Implementation
+###Implementation
 
 ## How to Use Website
 ### Pre-requisites
@@ -27,7 +27,7 @@ Login - Adelyn
 Logout - Adelyn
 Create a new account - Adelyn
 delete account - Brennan
-Open user home page (user can see messages of users they follow) - 
+Open user home page (user can see messages of users they follow) - Brennan
 Send messages to followers - 
 Follow User - 
 Search for user - Sahiti
