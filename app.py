@@ -9,8 +9,6 @@ from flask_migrate import Migrate
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from datetime import datetime
-from flask_wtf import FlaskForm
-from wtforms import SubmitField
 import time
 import os
 
@@ -75,124 +73,37 @@ class SearchedMessageForm(FlaskForm):
     searchedMessage = StringField("SearchedMessage", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+@app.context_processor
+def base1():
+    form = SearchedMessageForm()
+    return dict(form=form)
+
+#search post/message by its title
+@app.route('/searchedMessage', methods=['POST'])
+@login_required
+def searchedMessage():
+    form = SearchedMessageForm()
+    post = Post.query
+    if form.validate_on_submit():
+        post_searchedMessage = form.searchedMessage.data
+        #post = Post.query.filter_by(title=post_searchedMessage).first_or_404()
+        post = post.filter(Post.body.like('%' + post_searchedMessage + '%'))
+        post = post.order_by(Post.title).all()
+
+        return render_template('searchedMessage.html', form=form,
+        searchedMessage=post_searchedMessage, user=user, post=post)
+
 ##############################################
 #    Creating Following Capability           #
 ##############################################
-
-
-# Define the forms in your Flask code
-with app.test_request_context():
-    follow_form = FlaskForm()
-    follow_form.submit = SubmitField('Follow')
-
-    unfollow_form = FlaskForm()
-    unfollow_form.submit = SubmitField('Unfollow')
-
-
 followers = db.Table(
     'followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
-# Add this code to the User model
-followers = db.relationship(
-    'User',
-    secondary=followers,
-    primaryjoin=(followers.c.follower_id == id),
-    secondaryjoin=(followers.c.followed_id == id),
-    backref=db.backref('followers', lazy='dynamic'),
-    lazy='dynamic'
-)
-# Add this code to the User model
-def follow(self, user):
-    if not self.is_following(user):
-        self.followed.append(user)
 
-def unfollow(self, user):
-    if self.is_following(user):
-        self.followed.remove(user)
-
-def is_following(self, user):
-    return self.followed.filter(
-        followers.c.followed_id == user.id).count() > 0
-
-def followed_posts(self):
-    followed = Post.query.join(
-        followers, (followers.c.followed_id == Post.user_id)).filter(
-            followers.c.follower_id == self.id)
-    own = Post.query.filter_by(user_id=self.id)
-    return followed.union(own).order_by(Post.timestamp.desc())
-
-#@app.route('/find-users', methods=['GET', 'POST'])
-#def find_users():
-#    form = SearchForm()
-#    if form.validate_on_submit():
-#        users = User.query.filter(User.username.like(form.searched.data)).all()
-#        return render_template('find-users.html', form=form, users=users, follow_form=follow_form, unfollow_form=unfollow_form)
-#    return render_template('find-users.html', form=form, users=None)
-
-# Import the User model from the app module
-
-@app.route('/find-users', methods=['GET', 'POST'])
-@login_required
-def find_users():
-    # Create a form for searching for users
-    form = SearchForm()
-
-    # If the form is submitted and the search query is valid
-    if form.validate_on_submit():
-        # Get the search query from the form
-        query = form.searched.data
-
-        # Query the database for users that match the search query
-        results = User.query.filter(User.username.like(f"%{query}%")).all()
-
-        # If there are any results, render the search results page and pass the search results to the template
-        if results:
-            return render_template('search-results.html', results=results)
-        # If there are no results, flash a message and redirect to the search page
-        else:
-            flash("No users found.")
-            return redirect(url_for('find_users'))
-
-    # If the form has not been submitted or the search query is invalid, render the search page
-    return render_template('find-users.html', form=form)
-
-@app.route('/follow/<username>', methods=['POST'])
-def follow_user(username):
-    # Get the user with the specified username
-    user = User.query.filter_by(username=username).first()
-
-    # If the user exists, add them to the current user's list of followed users
-    if user:
-        current_user.followed_users.append(user)
-        db.session.commit()
-
-        # Return a success response
-        return jsonify({'success': True}), 200
-    # If the user does not exist, return an error
-    else:
-        return jsonify({'error': 'User not found'}), 404
-
-
-@app.route('/unfollow/<username>', methods=['POST'])
-def unfollow_user(username):
-    # Get the user with the specified username
-    user = User.query.filter_by(username=username).first()
-
-    # If the user exists, remove them from the current user's list of followed users
-    if user:
-        current_user.followed_users.remove(user)
-        db.session.commit()
-
-        # Return a success response
-        return jsonify({'success': True}), 200
-    # If the user does not exist, return an error
-    else:
-        return jsonify({'error': 'User not found'}), 404
-
-##############################################
-
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
 
 #This is our new model
 class User(UserMixin, db.Model):
@@ -202,19 +113,33 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
 
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+
     # def __init__(self, username, password):
     #     self.username = username
     #     self.password = password
-    
-    def is_following(self, other_user):
-        # Return True if this user is following the other user, and False otherwise
-        pass
-    
+
     def __repr__(self):
         return '<user>'.format(self.username)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
 
     def followed_posts(self):
         followed = Post.query.join(
@@ -247,6 +172,7 @@ def before_request():
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+#'/' or index route
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
@@ -266,9 +192,11 @@ def index():
         flash('Your message is now posted!')
         return redirect(url_for('index'))
 
-    # posts = current_user.followed_posts()
-    posts = Post.query.order_by(Post.timestamp.desc());
-    page = request.args.get('page', 1, type=int)
+    #To see followed posts only
+    posts = current_user.followed_posts()
+
+    #To see all posts whether followed or not
+    # posts = Post.query.order_by(Post.timestamp.desc());
 
     return render_template('index.html', title='Home', form=form, posts=posts)
 
@@ -294,6 +222,7 @@ def add_post():
     # Redirect to the webpage
     return render_template("add_post.html", form=form)
 
+# Login page route
 @app.route('/login', methods=['GET', 'POST'])
 def Login():
     if current_user.is_authenticated:
@@ -310,11 +239,13 @@ def Login():
             return redirect(url_for('index'))
     return render_template('login.html', form = form)
 
+# Logout page route
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# Logout register route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -336,7 +267,7 @@ def register():
 
     return render_template('registration.html', form=form)
 
-
+#Delete user route
 @app.route('/delete/<username>')
 @login_required
 def delete(username):
@@ -355,51 +286,74 @@ def delete(username):
         flash('You can not delete that user')
         return redirect(url_for('user', username=current_user.username))
 
+#Follower user route
+@app.route('/follow/<username>', methods=['POST'])
+@login_required
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('You cannot follow yourself!')
+            return redirect(url_for('user', username=username))
+        current_user.follow(user)
+        db.session.commit()
+        flash('You are following {}!'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+
+#Unfollow user route
+@app.route('/unfollow/<username>', methods=['POST'])
+@login_required
+def unfollow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('You cannot unfollow yourself!')
+            return redirect(url_for('user', username=username))
+        current_user.unfollow(user)
+        db.session.commit()
+        flash('You are not following {}.'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+
+#Open user profile route
 @app.route('/user/<username>')
 @login_required
 def user(username):
+    form = EmptyForm()
     user = User.query.filter_by(username=username).first_or_404()
-    page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().all()
 
-    return render_template('user.html', user=user, posts=posts, username=username)
+    return render_template('user.html', user=user, posts=posts, username=username, form=form)
 
 @app.context_processor #to pass stuff to nav bar (via base.html)
 def base():
      form = SearchForm()
      return dict(form=form)
 
+#Search route
 @app.route('/search', methods=['POST'])
 @login_required
 def search():
     form = SearchForm()
     if form.validate_on_submit():
-        post_searched = form.searched.data 
+        post_searched = form.searched.data
         user = User.query.filter_by(username=post_searched).first_or_404()
 
-        return render_template('search.html', form=form, 
+        return render_template('search.html', form=form,
         searched=post_searched, user=user)
 
-@app.context_processor
-def base1():
-    form = SearchedMessageForm()
-    return dict(form=form)
-
-#search post/message by its title
-@app.route('/searchedMessage', methods=['POST'])
-@login_required
-def searchedMessage():
-    form = SearchedMessageForm()
-    post = Post.query
-    if form.validate_on_submit():
-        post_searchedMessage = form.searchedMessage.data 
-        #post = Post.query.filter_by(title=post_searchedMessage).first_or_404()
-        post = post.filter(Post.body.like('%' + post_searchedMessage + '%'))
-        post = post.order_by(Post.title).all()
-
-        return render_template('searchedMessage.html', form=form, 
-        searchedMessage=post_searchedMessage, user=user, post=post)
-
+#404 or error page route
 @app.errorhandler(404)
 def page_not_found(error):
     return redirect(url_for('index'))
