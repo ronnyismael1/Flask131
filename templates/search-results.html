@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<html>
+<head>
+    <title>Search results</title>
+</head>
+<body>
+    <h1>Search results</h1>
+
+    <!-- Display the search results -->
+    {% if results %}
+        <ul>
+            {% for result in results %}
+                <li>
+                    {{ result.username }}
+
+                    <!-- Follow button -->
+                    <form method="POST" action="{{ url_for('follow_user', username=result.username) }}">
+                        <input type="submit" value="Follow">
+                    </form>
+
+                    <!-- Unfollow button -->
+                    <form method="POST" action="{{ url_for('unfollow_user', username=result.username) }}">
+                        <input type="submit" value="Unfollow">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>
+
+{% endblock %}
