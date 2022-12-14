@@ -71,6 +71,10 @@ class SearchForm(FlaskForm):
     searched = StringField("Searched", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class SearchedMessageForm(FlaskForm):
+    searchedMessage = StringField("SearchedMessage", validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
 ##############################################
 #    Creating Following Capability           #
 ##############################################
@@ -375,6 +379,26 @@ def search():
 
         return render_template('search.html', form=form, 
         searched=post_searched, user=user)
+
+@app.context_processor
+def base1():
+    form = SearchedMessageForm()
+    return dict(form=form)
+
+#search post/message by its title
+@app.route('/searchedMessage', methods=['POST'])
+@login_required
+def searchedMessage():
+    form = SearchedMessageForm()
+    post = Post.query
+    if form.validate_on_submit():
+        post_searchedMessage = form.searchedMessage.data 
+        #post = Post.query.filter_by(title=post_searchedMessage).first_or_404()
+        post = post.filter(Post.body.like('%' + post_searchedMessage + '%'))
+        post = post.order_by(Post.title).all()
+
+        return render_template('searchedMessage.html', form=form, 
+        searchedMessage=post_searchedMessage, user=user, post=post)
 
 @app.errorhandler(404)
 def page_not_found(error):
